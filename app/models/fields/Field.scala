@@ -9,10 +9,10 @@ trait Field{
 	lazy val name: String = FieldUtils.underscoreToCamel(this.field.name)
 
 	def htmlForm: String = {
-		val moduleName = field.module.name
+		val modelName = field.model.name
 		val name = field.name
 		s"""<legend>
-				@Messages("$moduleName.$name")
+				@Messages("$modelName.$name")
 		   </legend>
 		    @helper.inputText(rowForm("$name"))"""
 	}

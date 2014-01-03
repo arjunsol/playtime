@@ -11,9 +11,9 @@ class BooleanField(val field: FieldRow) extends Field{
 
 	override def htmlForm: String = {
 		val name = field.name
-		val moduleName = field.module.name
+		val modelName = field.model.name
 		s"""<legend>
-				@Messages("$moduleName.$name")
+				@Messages("$modelName.$name")
 		   </legend>
 		 @helper.checkbox(
 	      rowForm("$name")

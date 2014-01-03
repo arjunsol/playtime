@@ -8,9 +8,9 @@ class NameField(val field: FieldRow) extends Field{
 	}
 
 	override def htmlForm: String = {
-		val moduleName = field.module.name
+		val modelName = field.model.name
 		s"""<legend>
-				@Messages("$moduleName.item_name")
+				@Messages("$modelName.item_name")
 		   </legend>
 		    @helper.inputText(rowForm("name"))"""
 	}

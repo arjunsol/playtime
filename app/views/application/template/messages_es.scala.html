@@ -1,21 +1,21 @@
-@(appName: String, modules: List[models.DB.ModuleRow])
+@(appName: String, modelList: List[models.DB.ModelRow])
 application.name = @appName
 
-@for(module <- modules){
+@for(model <- modelList){
 
-#@{module.name}
-@{module.name}.module_name = @{module.name.capitalize}
+#@{model.name}
+@{model.name}.model_name = @{model.name.capitalize}
 
-@{module.name}.number = #
-@{module.name}.item_name = Nombre
+@{model.name}.number = #
+@{model.name}.item_name = Nombre
 
-@{module.name}.new = Nuevo @{module.name.capitalize}
-@{module.name}.insert = Insertando un nuevo @{module.name.capitalize}
-@{module.name}.return = Volver
-@{module.name}.save = Guardar
-@{module.name}.index = Listado de @{module.name.capitalize}
-@{module.name}.item_detail = Detalles de {0} @{module.name.capitalize}
+@{model.name}.new = Nuevo @{model.name.capitalize}
+@{model.name}.insert = Insertando un nuevo @{model.name.capitalize}
+@{model.name}.return = Volver
+@{model.name}.save = Guardar
+@{model.name}.index = Listado de @{model.name.capitalize}
+@{model.name}.item_detail = Detalles de {0} @{model.name.capitalize}
 
-@for(field <- module.fields){
-@{module.name}.@{field.name} = @{field.name.capitalize}}
+@for(field <- model.fields){
+@{model.name}.@{field.name} = @{field.name.capitalize}}
 }

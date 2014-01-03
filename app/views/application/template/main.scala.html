@@ -1,4 +1,4 @@
-@(modules: List[models.DB.ModuleRow])
+@(modelList: List[models.DB.ModelRow])
 @@(title: String)(content: Html)
 <!DOCTYPE html>
 
@@ -18,9 +18,9 @@
             @@Messages("application.name")
           </a>
 
-          @for(module <- modules){
-          <a class="brand" href="@@routes.@{module.name.capitalize}Controller.index()">
-            @@Messages("@{module.name}.module_name")
+          @for(model <- modelList){
+          <a class="brand" href="@@routes.@{model.name.capitalize}Controller.index()">
+            @@Messages("@{model.name}.model_name")
           </a>
           } 
 

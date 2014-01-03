@@ -1,3 +1,4 @@
-Change the naming of modules to models.
+DONE:	Change the naming of modules to models.
 Add the ability to create a play project.
 Add ability to add modules to existing applications.
+Enable use of doubles in forms.

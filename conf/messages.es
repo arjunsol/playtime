@@ -1,6 +1,6 @@
 application.name = Grator
 
-application.module_name = Aplicaciones
+application.model_name = Aplicaciones
 
 application.number = #
 application.item_name = Nombre
@@ -14,31 +14,31 @@ application.item_detail = Detalle de la aplicación {0}
 application.path = Ruta
 application.generate_all = Generar Todo
 application.detail = Detalle
-application.module_list = Modulos de {0}
+application.model_list = Modulos de {0}
 
 
-#modules
-module.module_name = Modulos
+#models
+model.model_name = Modulos
 
-module.number = #
-module.item_name = Nombre
+model.number = #
+model.item_name = Nombre
 
-module.new = Nuevo Módulo
-module.insert = Ingresando Nuevo Módulo
-module.return = Volver
-module.save = Guardar
-module.index = Listado de modulos
-module.item_detail = Detalle del módulo {0}
-module.field_list = Listado de Campos
+model.new = Nuevo Módulo
+model.insert = Ingresando Nuevo Módulo
+model.return = Volver
+model.save = Guardar
+model.index = Listado de modulos
+model.item_detail = Detalle del módulo {0}
+model.field_list = Listado de Campos
 
-module.generate_all = Generar Todo
-module.generate_controller = Generar Controlador
-module.generate_table = Generar Tabla
-module.generate_row = Generar Registro
-module.generate_views = Generar Vistas
+model.generate_all = Generar Todo
+model.generate_controller = Generar Controlador
+model.generate_table = Generar Tabla
+model.generate_row = Generar Registro
+model.generate_views = Generar Vistas
 
 #field
-field.module_name = Campos
+field.model_name = Campos
 
 field.number = #
 field.item_name = Nombre

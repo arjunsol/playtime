@@ -36,8 +36,8 @@ object ApplicationController extends Controller {
   def detail(id: Long) = Action {
     ApplicationRow.findById(id).map{
       application => {
-        //val modules = ModuleRow.findByApplicationId(application.id.get)
-        Ok(views.html.application.detail(application,application.modules))
+        //val models = ModelRow.findByApplicationId(application.id.get)
+        Ok(views.html.application.detail(application,application.models))
       }
     }.getOrElse(NotFound)
   }
@@ -46,7 +46,8 @@ object ApplicationController extends Controller {
     applicationForm.bindFromRequest.fold(
       formWithErrors => BadRequest(views.html.application.insert(formWithErrors)),
       application => {
-        val id = ApplicationRow.save(application)
+        //TODO: Create logic to call play new method here.
+        val id = ApplicationRow.save(application)        
         Redirect(routes.ApplicationController.detail(id))
       }
     )

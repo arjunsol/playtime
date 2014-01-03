@@ -11,15 +11,15 @@ import slick.lifted.{Join, MappedTypeMapper}
 case class FieldRow(
   id: Option[Long] = None,
   name: String,
-  moduleId: Long,
+  modelId: Long,
   fieldType: String,
   required: Boolean,
-  relatedModuleId: Option[Long] = None
+  relatedModelId: Option[Long] = None
 ){
-  lazy val module = ModuleRow.findById(this.moduleId).get
-  lazy val relatedModule: Option[ModuleRow] = {
-    this.relatedModuleId match{
-      case Some(id) => Some(ModuleRow.findById(id).get)
+  lazy val model = ModelRow.findById(this.modelId).get
+  lazy val relatedModel: Option[ModelRow] = {
+    this.relatedModelId match{
+      case Some(id) => Some(ModelRow.findById(id).get)
       case None => None
     }
   }
@@ -78,10 +78,10 @@ object FieldRow{
     }
   }
 
-  def findByModule(moduleId: Long): List[FieldRow] = {
+  def findByModel(modelId: Long): List[FieldRow] = {
     DB.withSession { implicit session =>
       val q = for{
-        s <- FieldTable if s.moduleId === moduleId
+        s <- FieldTable if s.modelId === modelId
       } yield (s)
       q.list
     }

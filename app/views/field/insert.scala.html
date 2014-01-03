@@ -1,6 +1,6 @@
 @(
   form: Form[models.DB.FieldRow], 
-  moduleOptions: Seq[(String,String)], 
+  modelOptions: Seq[(String,String)], 
   typeOptions: Seq[(String,String)]
 )(implicit lang: Lang)
 
@@ -9,7 +9,7 @@
       <h1>@Messages("field.insert")</h1>
   </div>
   
-  @views.html.field.form(form, moduleOptions, typeOptions, route = routes.FieldController.save())
+  @views.html.field.form(form, modelOptions, typeOptions, route = routes.FieldController.save())
 
   <p>
     <a href="@controllers.routes.FieldController.index()"

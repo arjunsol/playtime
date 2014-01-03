@@ -1,7 +1,7 @@
 
 @(
   rowForm: Form[models.DB.FieldRow], 
-  moduleOptions: Seq[(String,String)], 
+  modelOptions: Seq[(String,String)], 
   fieldOptions: Seq[(String,String)], 
   route: play.api.mvc.Call, 
   row: Option[models.DB.FieldRow] = None
@@ -26,8 +26,8 @@
     @helper.inputText(rowForm("name"))
 
     @helper.select(
-        rowForm("module"),
-        moduleOptions               
+        rowForm("model"),
+        modelOptions               
     )
 
     @helper.select(
@@ -40,8 +40,8 @@
     )
 
     @helper.select(
-        rowForm("relatedModuleId"),
-        moduleOptions               
+        rowForm("relatedModelId"),
+        modelOptions               
     )
 
   </fieldset>

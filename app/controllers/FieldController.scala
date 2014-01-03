@@ -24,17 +24,17 @@ object FieldController extends Controller {
       mapping(
         "id" -> optional(longNumber),
         "name" -> nonEmptyText,
-        "module" -> longNumber,
+        "model" -> longNumber,
         "fieldType" -> nonEmptyText,
         "required" -> boolean,
-        "relatedModuleId" -> optional(longNumber)
+        "relatedModelId" -> optional(longNumber)
       )(FieldRow.apply)(FieldRow.unapply)
   )
 
   def insert = Action {
-    val moduleOptions = ModuleRow.getOptions
+    val modelOptions = ModelRow.getOptions
     val typeOptions = FieldRow.getTypeOptions
-    Ok(views.html.field.insert(fieldForm,moduleOptions,typeOptions))
+    Ok(views.html.field.insert(fieldForm,modelOptions,typeOptions))
   }
   
 
@@ -47,9 +47,9 @@ object FieldController extends Controller {
   def save = Action { implicit request =>
     fieldForm.bindFromRequest.fold(
       formWithErrors => {
-        val moduleOptions = ModuleRow.getOptions
+        val modelOptions = ModelRow.getOptions
         val typeOptions = FieldRow.getTypeOptions
-        BadRequest(views.html.field.insert(formWithErrors,moduleOptions,typeOptions))
+        BadRequest(views.html.field.insert(formWithErrors,modelOptions,typeOptions))
         },
       field => {
         val id = FieldRow.save(field)
@@ -61,9 +61,9 @@ object FieldController extends Controller {
   def edit(id: Long) = Action{
     FieldRow.findById(id).map{
       field:FieldRow => {
-        val moduleOptions = ModuleRow.getOptions
+        val modelOptions = ModelRow.getOptions
         val typeOptions = FieldRow.getTypeOptions
-        Ok(views.html.field.edit(fieldForm.fill(field),moduleOptions, typeOptions, field))
+        Ok(views.html.field.edit(fieldForm.fill(field),modelOptions, typeOptions, field))
       }
     }.getOrElse(NotFound)
   }
@@ -83,9 +83,9 @@ object FieldController extends Controller {
       field => {
       fieldForm.bindFromRequest.fold(
         formWithErrors => {
-          val moduleOptions = ModuleRow.getOptions
+          val modelOptions = ModelRow.getOptions
           val typeOptions = FieldRow.getTypeOptions
-          BadRequest(views.html.field.edit(formWithErrors, moduleOptions, typeOptions, field))
+          BadRequest(views.html.field.edit(formWithErrors, modelOptions, typeOptions, field))
         },
         field => {
           FieldRow.update(field)
