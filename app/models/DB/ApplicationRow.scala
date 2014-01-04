@@ -12,7 +12,8 @@ import utils.FileUtils
 case class ApplicationRow(
 	id: Option[Long] = None,
 	name: String,
-  path: String
+	path: String,
+	createProject: Boolean
 ){
   lazy val models = ModelRow.findByApplication(this.id.get)
 

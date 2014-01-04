@@ -1,24 +1,32 @@
 package controllers.operations
 
-import java.io.File
+import java.io.{File,FileInputStream,FileOutputStream}
+import org.apache.commons.io.FileUtils
 
 object FileOperations{
   def createPath(path: String){
-    val carpeta = new java.io.File(path)
+    val dir = new java.io.File(path)
     try{
-      if(!carpeta.exists){
-        carpeta.getParentFile().mkdirs();
+      if(!dir.exists){
+        dir.getParentFile().mkdirs();
       }
     }
 }
 
 def writeToFile(path: String, file: String) {
     this.createPath(path)
-    val archivo = new java.io.PrintWriter(new File(path))
+    val outFile = new java.io.PrintWriter(new File(path))
     try {
-      archivo.write(file)
+      outFile.write(file)
     } finally {
-      archivo.close()
+      outFile.close()
     }
   }
+
+def copyPath(srcPath: String, dstPath: String) {
+	//this.createPath(dstPath)
+    val src = new File(srcPath)
+    val dst = new File(dstPath)
+	FileUtils.copyDirectory(src, dst)
+}
 }

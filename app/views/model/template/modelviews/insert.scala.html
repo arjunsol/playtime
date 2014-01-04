@@ -1,0 +1,16 @@
+@(model: models.Model)
+@@(form: Form[models.DB.@{model.rowName}])(implicit lang: Lang)
+
+@@main(Messages("@{model.name}.insert")){
+  <div class="page-header">
+      <h1>@@Messages("@{model.name}.insert")</h1>
+  </div>
+  
+  @@views.html.@{model.name}.form(form, route = routes.@{model.controllerName}.save())
+
+  <p>
+    <a href="@@controllers.routes.@{model.controllerName}.index()"
+    class="btn">
+    <i class="icon-plus"></i>@@Messages("@{model.name}.return")</a>
+  </p>
+}

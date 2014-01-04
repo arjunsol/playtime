@@ -3,7 +3,7 @@
 
 # --- !Ups
 
-create table `application` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`path` VARCHAR(254) NOT NULL);
+create table `application` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`path` VARCHAR(254) NOT NULL,`create_project` BOOLEAN NOT NULL);
 create table `field` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`model_id` BIGINT NOT NULL,`field_type` VARCHAR(254) NOT NULL,`required` BOOLEAN NOT NULL,`related_model_id` BIGINT);
 create table `model` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(254) NOT NULL,`application_id` BIGINT NOT NULL);
 alter table `field` add constraint `field_model_id` foreign key(`model_id`) references `model`(`id`) on update NO ACTION on delete NO ACTION;

@@ -1,0 +1,13 @@
+@(model: models.Model, fields: List[models.fields.Field])
+@@(rowForm: Form[models.DB.@{model.rowName}], route: play.api.mvc.Call, row: Option[models.DB.@{model.rowName}] = None)(implicit lang: Lang)
+
+@@import helper._
+@@import helper.twitterBootstrap._
+
+@@helper.form(action = route) {
+  <fieldset>
+    @views.html.field.template.fields.render_html_form(fields)
+  </fieldset>
+  <p><input type="submit" class="btn primary"
+  value='@@Messages("@{model.name}.save")'></p>
+}

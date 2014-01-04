@@ -9,7 +9,8 @@ import slick.lifted.{Join, MappedTypeMapper}
 object ApplicationTable extends Table[ApplicationRow]("application"){
 	def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 	def name = column[String]("name",O.NotNull)
-  def path = column[String]("path",O.NotNull)
+    def path = column[String]("path",O.NotNull)
+    def createProject = column[Boolean]("create_project",O.NotNull)
 
-	def * = id.? ~ name ~ path <> (ApplicationRow.apply _, ApplicationRow.unapply _)
+	def * = id.? ~ name ~ path ~ createProject <> (ApplicationRow.apply _, ApplicationRow.unapply _)
 }

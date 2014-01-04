@@ -16,6 +16,7 @@ application.path = Path
 application.generate_all = Generate All
 application.detail = Detail
 application.model_list = {0} Modules
+application.create_project = Project Created
 
 
 #models
