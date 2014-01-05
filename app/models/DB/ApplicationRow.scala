@@ -16,6 +16,7 @@ case class ApplicationRow(
 	createProject: Boolean
 ){
   lazy val models = ModelRow.findByApplication(this.id.get)
+  lazy val modules = ModuleRow.findByApplicationId(this.id.get)
 
   def generateAll(): Unit = {
     val models = ModelRow.findAll

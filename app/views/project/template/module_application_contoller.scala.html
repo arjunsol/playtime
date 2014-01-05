@@ -1,0 +1,12 @@
+@(name: String)package controllers.@{name}
+
+import play.api._
+import play.api.mvc._
+
+object Application extends Controller {
+  
+  def status = Action {
+    Ok("@{name} 200 OK")
+  }
+  
+}

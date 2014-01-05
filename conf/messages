@@ -6,17 +6,35 @@ application.model_name = Applications
 application.number = #
 application.item_name = Name
 
+application.home = Home
 application.new = New Application
 application.insert = A New Application
 application.return = Return
 application.save = Save
 application.index = Applications List
-application.item_detail = {0} Application details
+application.item_detail = {0} application details
 application.path = Path
 application.generate_all = Generate All
 application.detail = Detail
-application.model_list = {0} Modules
+application.model_list = {0} models
+application.module_list = {0} modules
 application.create_project = Project Created
+
+#modules
+module.model_name = Modules
+
+module.number = #
+module.item_name = Name
+
+module.new = New Module
+module.insert = A New Module
+module.return = Return
+module.save = Save
+module.dependencies = Dependencies
+module.item_detail = {0} Module details
+
+module.id = Id
+module.name = Name
 
 
 #models

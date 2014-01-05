@@ -5,16 +5,18 @@ import play.api.mvc._
 import models.DB._
 import play.api.data._
 import play.api.data.Forms._
-import play.api.Play.current
+
 import play.api.db.slick.DB
 import play.api.db.slick.Config.driver.simple._
 import slick.lifted.{Join, MappedTypeMapper}
 import controllers.operations.FileOperations
+import controllers.operations.ProjectOperations
 import utils.FileUtils
 
 object ApplicationController extends Controller {
+  
   def index = Action {
-    //Ok(views.html.index("Your new application is ready."))
+    
     val applications = ApplicationRow.findAll
 
     Ok(views.html.application.index(applications))
@@ -38,7 +40,7 @@ object ApplicationController extends Controller {
     ApplicationRow.findById(id).map{
       application => {
         //val models = ModelRow.findByApplicationId(application.id.get)
-        Ok(views.html.application.detail(application,application.models))
+        Ok(views.html.application.detail(application, application.modules, application.models))
       }
     }.getOrElse(NotFound)
   }
@@ -49,17 +51,9 @@ object ApplicationController extends Controller {
       application => {
         
         if (application.createProject) {
-	        val srcPath = Play.application.path.getAbsolutePath() + "\\public\\projects\\new-scala"
-	        val dstPath = application.path + "\\" + application.name
-	        val random = new java.security.SecureRandom
-	        val newSecret = (1 to 64).map { _ =>
-	        	(random.nextInt(74) + 48).toChar
-	        }.mkString.replaceAll("\\\\+", "/")
-	        
-	        FileOperations.copyPath(srcPath, dstPath)
-	        FileUtils.writeToFile(dstPath + "\\build.sbt",views.html.model.template.build_sbt(application.name).toString)
-	        FileUtils.writeToFile(dstPath + "\\conf\\application.conf",views.html.model.template.application_conf(newSecret).toString)
-        }
+          ProjectOperations.createProject(application.name, application.path + "\\" + application.name)
+        }       
+        
         val id = ApplicationRow.save(application)        
         Redirect(routes.ApplicationController.detail(id))
       }

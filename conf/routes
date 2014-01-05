@@ -8,6 +8,15 @@ POST  /application/:id/delete       controllers.ApplicationController.delete(id:
 POST  /application/:id/update       controllers.ApplicationController.update(id: Long)
 GET   /application/:id/generateall  controllers.ApplicationController.generateAll(id: Long)
 
+GET   /module						controllers.ModuleController.index
+GET   /module/:id/detail     		controllers.ModuleController.detail(id: Long)
+GET   /module/insert         		controllers.ModuleController.insert
+GET   /module/:id/edit       		controllers.ModuleController.edit(id: Long)
+POST  /module/save			        controllers.ModuleController.save
+POST  /module/:id/delete  		    controllers.ModuleController.delete(id: Long)
+POST  /module/:id/update     		controllers.ModuleController.update(id: Long)
+
+
 GET   /model                controllers.ModelController.index
 GET   /model/:id/detail     controllers.ModelController.detail(id: Long)
 GET   /model/insert         controllers.ModelController.insert

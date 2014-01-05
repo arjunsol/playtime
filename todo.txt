@@ -1,5 +1,7 @@
 DONE:	Change the naming of modules to models.
-Add the ability to create a play project.
-Add the ability to edit and delete all objects.
-Add ability to add modules to existing applications.
+DONE:   Add the ability to create a play project.
+DONE:   Add ability to add modules to existing applications.
+Change templates to generate appropriate @select statements for optional fields (use messages for content)
+Add support for one to many relationships
 Enable use of doubles in forms.
+Add the ability to edit and delete all objects.

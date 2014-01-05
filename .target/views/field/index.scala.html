@@ -1,0 +1,12 @@
+
+@(rows: List[models.DB.FieldRow])(implicit lang: Lang)
+
+@main(Messages("field.name")){
+	<div class="page-header">
+    	<h1>@Messages("field.model_name")</h1>
+  </div>
+	
+  @views.html.field.list(rows)
+
+  @views.html.field.buttons.new_item()
+}
