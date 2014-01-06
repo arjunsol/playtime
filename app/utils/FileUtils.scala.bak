@@ -1,0 +1,43 @@
+package utils
+
+import java.io.File
+
+object FileUtils{
+  def createPath(path: String){
+<<<<<<< HEAD
+    val directory = new java.io.File(path)
+    try{
+      if(!directory.exists){
+        directory.getParentFile().mkdirs();
+      }
+=======
+        val carpeta = new java.io.File(path)
+        try{
+          if(!carpeta.exists){
+            carpeta.getParentFile().mkdirs()
+          }
+        }
+>>>>>>> e49c05040bbfcc650e70f0bfe40df89e802b1dfa
+    }
+
+<<<<<<< HEAD
+def writeToFile(path: String, content: String) {
+=======
+  def writeToFile(path: String, file: String) {
+>>>>>>> e49c05040bbfcc650e70f0bfe40df89e802b1dfa
+    this.createPath(path)
+    val file = new java.io.PrintWriter(new File(path))
+    try {
+      file.write(content)
+    } finally {
+      file.close()
+    }
+  }
+
+  def writeIfNotExists(path: String, file: => String){
+    val myFile = new File(path)
+    if(!myFile.exists){
+      this.writeToFile(path,file)
+    }
+  }
+}
