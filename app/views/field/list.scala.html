@@ -12,7 +12,7 @@
     @for(row <- rows){
           <tr>
             <td>
-              <a href="@controllers.routes.FieldController.detail(row.id.get)">@row.id</a>
+              <a href="@controllers.routes.FieldController.edit(row.id.get)">@row.id</a>
             </td>
             <td>@row.name</td>
         </tr>

@@ -8,18 +8,28 @@ POST  /application/:id/delete       controllers.ApplicationController.delete(id:
 POST  /application/:id/update       controllers.ApplicationController.update(id: Long)
 GET   /application/:id/generateall  controllers.ApplicationController.generateAll(id: Long)
 
-GET   /module                controllers.ModuleController.index
-GET   /module/:id/detail     controllers.ModuleController.detail(id: Long)
-GET   /module/insert         controllers.ModuleController.insert
-GET   /module/:id/edit       controllers.ModuleController.edit(id: Long)
-POST  /module/save           controllers.ModuleController.save
-POST  /module/:id/delete     controllers.ModuleController.delete(id: Long)
-POST  /module/:id/update     controllers.ModuleController.update(id: Long)
-GET   /module/:id/generateall controllers.ModuleController.generateAll(id: Long)
-GET   /module/:id/controller  controllers.ModuleController.generateController(id: Long)
-GET   /module/:id/table       controllers.ModuleController.generateTable(id: Long)
-GET   /module/:id/row         controllers.ModuleController.generateRow(id: Long)
-GET   /module/:id/views       controllers.ModuleController.generateViews(id: Long)
+# Module
+GET   /module						controllers.ModuleController.index
+GET   /module/:id/detail     		controllers.ModuleController.detail(id: Long)
+GET   /module/insert         		controllers.ModuleController.insert
+GET   /module/:id/edit       		controllers.ModuleController.edit(id: Long)
+POST  /module/save			        controllers.ModuleController.save
+POST  /module/:id/delete  		    controllers.ModuleController.delete(id: Long)
+POST  /module/:id/update     		controllers.ModuleController.update(id: Long)
+
+# Model
+GET   /model                controllers.ModelController.index
+GET   /model/:id/detail     controllers.ModelController.detail(id: Long)
+GET   /model/insert         controllers.ModelController.insert
+GET   /model/:id/edit       controllers.ModelController.edit(id: Long)
+POST  /model/save           controllers.ModelController.save
+POST  /model/:id/delete     controllers.ModelController.delete(id: Long)
+POST  /model/:id/update     controllers.ModelController.update(id: Long)
+GET   /model/:id/generateall controllers.ModelController.generateAll(id: Long)
+GET   /model/:id/controller  controllers.ModelController.generateController(id: Long)
+GET   /model/:id/table       controllers.ModelController.generateTable(id: Long)
+GET   /model/:id/row         controllers.ModelController.generateRow(id: Long)
+GET   /model/:id/views       controllers.ModelController.generateViews(id: Long)
 
 #field:
 GET   /field                controllers.FieldController.index

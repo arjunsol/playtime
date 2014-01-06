@@ -23,13 +23,13 @@ class RelatedField(val field: FieldRow) extends Field{
 	*/
 
 	override def htmlForm: String = {
-		val moduleName = field.module.name
-		val relatedModuleRow = field.relatedModule.get
-		val relatedModule = relatedModuleRow.module
-		val relatedRowName = relatedModule.rowName
+		val modelName = field.model.name
+		val relatedModelRow = field.relatedModel.get
+		val relatedModel = relatedModelRow.model
+		val relatedRowName = relatedModel.rowName
 		val name = field.name
 		s"""<legend>
-				@Messages("$moduleName.$name")
+				@Messages("$modelName.$name")
 		   </legend>
 		   @select(
 		   		rowForm("$name"),
@@ -49,8 +49,8 @@ class RelatedField(val field: FieldRow) extends Field{
 
 	def tableIndex: String = {
 		val name = field.name
-		val relatedName = field.relatedModule.get.name
-		val keyName = field.module.name+"_"+relatedName+"_"+name
+		val relatedName = field.relatedModel.get.name
+		val keyName = field.model.name+"_"+relatedName+"_"+name
 		val relatedTable = relatedName.capitalize+"Table"
 		val varName = if(this.name == name){name+"Id"}else{this.name}
 		s"""def $varName = foreignKey("$keyName", $name, $relatedTable)(_.id)"""

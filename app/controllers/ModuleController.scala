@@ -2,48 +2,56 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-
 import models.DB._
-
 import play.api.data._
 import play.api.data.Forms._
-
 import play.api.db.slick.DB
 import play.api.db.slick.Config.driver.simple._
 import slick.lifted.{Join, MappedTypeMapper}
+import controllers.operations.ProjectOperations
+import controllers.operations.FileOperations
 
 object ModuleController extends Controller {
   def index = Action {
-    //Ok(views.html.index("Your new module is ready."))
-    val modules = ModuleRow.findAll
+    val Modules = ModuleRow.findAll
 
-    Ok(views.html.module.index(modules))
+    Ok(views.html.module.index(Modules))
   }
 
-  val moduleForm = Form(
+  val ModuleForm = Form(
       mapping(
-        "id" -> optional(longNumber),
-        "name" -> nonEmptyText,
-        "application" -> longNumber
+					"id" -> optional(longNumber),
+					"name" -> nonEmptyText,
+					"applicationId" -> longNumber,
+					"dependencies" -> optional(longNumber)
+
       )(ModuleRow.apply)(ModuleRow.unapply)
   )
 
   def insert = Action {
-    Ok(views.html.module.insert(moduleForm, ApplicationRow.getOptions))
+    Ok(views.html.module.insert(ModuleForm, ApplicationRow.getOptions))
   }
   
 
   def detail(id: Long) = Action {
     ModuleRow.findById(id).map{
-      module => Ok(views.html.module.detail(module))
+      Module => Ok(views.html.module.detail(Module))
     }.getOrElse(NotFound)
   }
   
   def save = Action { implicit request =>
-    moduleForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(views.html.module.insert(formWithErrors,ApplicationRow.getOptions)),
+    ModuleForm.bindFromRequest.fold(
+      formWithErrors => BadRequest(views.html.module.insert(formWithErrors, ApplicationRow.getOptions)),
       module => {
+        
         val id = ModuleRow.save(module)
+        
+        val application = ApplicationRow.findById(module.applicationId).get
+        
+        val modulePath = application.path + "\\" + application.name + "\\modules" + "\\" + module.name
+        
+        ProjectOperations.createModule(module.name, modulePath)
+        
         Redirect(routes.ModuleController.detail(id))
       }
     )
@@ -51,15 +59,15 @@ object ModuleController extends Controller {
   
   def edit(id: Long) = Action{
     ModuleRow.findById(id).map{
-      module:ModuleRow => Ok(views.html.module.edit(moduleForm.fill(module), ApplicationRow.getOptions, module))
+      Module:ModuleRow => Ok(views.html.module.edit(ModuleForm.fill(Module), ApplicationRow.getOptions, Module))
     }.getOrElse(NotFound)
   }
   
   def delete(id: Long) = Action{
     implicit request =>
     ModuleRow.findById(id).map{
-      moduleRow => {
-          ModuleRow.delete(moduleRow)
+      Module => {
+          ModuleRow.delete(Module)
           Redirect(routes.ModuleController.index())
     }
     }.getOrElse(NotFound)
@@ -67,60 +75,15 @@ object ModuleController extends Controller {
   
   def update(id: Long) = Action{ implicit request =>
     ModuleRow.findById(id).map{
-      module => {
-      moduleForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.module.edit(formWithErrors, ApplicationRow.getOptions, module)),
-        module => {
-          ModuleRow.update(module)
-          Redirect(routes.ModuleController.detail(module.id.get))
+      Module => {
+      ModuleForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(views.html.module.edit(formWithErrors, ApplicationRow.getOptions, Module)),
+        Module => {
+          ModuleRow.update(Module)
+          Redirect(routes.ModuleController.detail(Module.id.get))
         }
       )
     }
-    }.getOrElse(NotFound)
-  }
-
-  def generateAll(id: Long) = Action {
-    ModuleRow.findById(id).map{
-      module:ModuleRow => {
-        module.generateAll
-        Redirect(routes.ModuleController.detail(module.id.get)) 
-      }
-    }.getOrElse(NotFound)
-  }
-
-  def generateController(id: Long) = Action {
-    ModuleRow.findById(id).map{
-      module:ModuleRow => {
-        module.generateController
-        Redirect(routes.ModuleController.detail(module.id.get)) 
-      }
-    }.getOrElse(NotFound)
-  }
-
-  def generateTable(id: Long) = Action {
-    ModuleRow.findById(id).map{
-      module:ModuleRow => {
-        module.generateTable
-        Redirect(routes.ModuleController.detail(module.id.get)) 
-      }
-    }.getOrElse(NotFound)
-  }
-
-  def generateRow(id: Long) = Action {
-    ModuleRow.findById(id).map{
-      module:ModuleRow => {
-        module.generateRow()
-        Redirect(routes.ModuleController.detail(module.id.get)) 
-      }
-    }.getOrElse(NotFound)
-  }
-
-  def generateViews(id: Long) = Action {
-    ModuleRow.findById(id).map{
-      module:ModuleRow => {
-        module.generateViews()
-        Redirect(routes.ModuleController.detail(module.id.get)) 
-      }
     }.getOrElse(NotFound)
   }
 }

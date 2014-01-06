@@ -12,36 +12,38 @@ import utils.FileUtils
 case class ApplicationRow(
 	id: Option[Long] = None,
 	name: String,
-  path: String
+	path: String,
+	createProject: Boolean
 ){
-  lazy val modules = ModuleRow.findByApplication(this.id.get)
+  lazy val models = ModelRow.findByApplication(this.id.get)
+  lazy val modules = ModuleRow.findByApplicationId(this.id.get)
 
   def generateAll(): Unit = {
-    val modules = ModuleRow.findAll
-    for(module <- modules){
-      module.generateAll
+    val models = ModelRow.findAll
+    for(model <- models){
+      model.generateAll
     }
 
-    this.generateRoutes(modules)
-    this.generateMessages(modules)
-    this.generateMenu(modules)
+    this.generateRoutes(models)
+    this.generateMessages(models)
+    this.generateMenu(models)
   }
 
-  def generateMessages(modules: List[ModuleRow]): Unit = {
+  def generateMessages(models: List[ModelRow]): Unit = {
     val path = this.path+"conf/messages"
 
-    FileUtils.writeToFile(path,views.html.application.template.messages(this.name, modules).toString)
-    FileUtils.writeToFile(path+".es",views.html.application.template.messages_es(this.name, modules).toString)
+    FileUtils.writeToFile(path,views.html.application.template.messages(this.name, models).toString)
+    FileUtils.writeToFile(path+".es",views.html.application.template.messages_es(this.name, models).toString)
   }
 
-  def generateRoutes(modules: List[ModuleRow]): Unit = {
+  def generateRoutes(models: List[ModelRow]): Unit = {
     val path = this.path+"conf/routes"
-    FileUtils.writeToFile(path,views.html.application.template.routes(modules).toString)
+    FileUtils.writeToFile(path,views.html.application.template.routes(models).toString)
   }
 
-  def generateMenu(modules: List[ModuleRow]): Unit = {
+  def generateMenu(models: List[ModelRow]): Unit = {
     val path = this.path+"app/views/main.scala.html"
-    FileUtils.writeToFile(path,views.html.application.template.main(modules).toString)
+    FileUtils.writeToFile(path,views.html.application.template.main(models).toString)
   }
 }
 
@@ -91,11 +93,11 @@ object ApplicationRow{
 	}
 
   /*
-  def findByIdWithModules(id: Long): Option[(ApplicationRow,List[ModuleRow])] = {
+  def findByIdWithModels(id: Long): Option[(ApplicationRow,List[ModelRow])] = {
     DB.withSession{ implicit session =>
       val q = for{
         a <- ApplicationTable if a.id === id
-        m <- ModuleTable
+        m <- ModelTable
       } yield (a,m)
       q.list
     }

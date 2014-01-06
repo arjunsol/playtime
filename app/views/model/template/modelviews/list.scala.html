@@ -1,0 +1,19 @@
+@(model: models.Model, fields: List[models.fields.Field])
+@@(rows: List[models.DB.@{model.rowName}])(implicit lang: Lang)
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>@for(field <- fields){
+        <th>@@Messages("@{model.name}.@{field.field.name}")</th>}
+      </tr>
+    </thead>
+    <tbody>
+    @@for(row <- rows){
+          <tr>@for(field <- fields){
+            <td>
+              @Html(field.list)
+            </td>}
+        </tr>
+    }
+     </tbody>
+  </table>

@@ -2,19 +2,21 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-
 import models.DB._
-
 import play.api.data._
 import play.api.data.Forms._
 
 import play.api.db.slick.DB
 import play.api.db.slick.Config.driver.simple._
 import slick.lifted.{Join, MappedTypeMapper}
+import controllers.operations.FileOperations
+import controllers.operations.ProjectOperations
+import utils.FileUtils
 
 object ApplicationController extends Controller {
+  
   def index = Action {
-    //Ok(views.html.index("Your new application is ready."))
+    
     val applications = ApplicationRow.findAll
 
     Ok(views.html.application.index(applications))
@@ -24,7 +26,8 @@ object ApplicationController extends Controller {
 	    mapping(
 	      "id" -> optional(longNumber),
 	      "name" -> nonEmptyText,
-        "path" -> nonEmptyText
+        "path" -> nonEmptyText,
+        "createProject" -> boolean
 	    )(ApplicationRow.apply)(ApplicationRow.unapply)
 	)
 
@@ -36,8 +39,8 @@ object ApplicationController extends Controller {
   def detail(id: Long) = Action {
     ApplicationRow.findById(id).map{
       application => {
-        //val modules = ModuleRow.findByApplicationId(application.id.get)
-        Ok(views.html.application.detail(application,application.modules))
+        //val models = ModelRow.findByApplicationId(application.id.get)
+        Ok(views.html.application.detail(application, application.modules, application.models))
       }
     }.getOrElse(NotFound)
   }
@@ -46,7 +49,12 @@ object ApplicationController extends Controller {
     applicationForm.bindFromRequest.fold(
       formWithErrors => BadRequest(views.html.application.insert(formWithErrors)),
       application => {
-        val id = ApplicationRow.save(application)
+        
+        if (application.createProject) {
+          ProjectOperations.createProject(application.name, application.path + "\\" + application.name)
+        }       
+        
+        val id = ApplicationRow.save(application)        
         Redirect(routes.ApplicationController.detail(id))
       }
     )

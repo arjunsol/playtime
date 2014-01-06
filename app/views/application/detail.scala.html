@@ -1,4 +1,4 @@
-@(application: models.DB.ApplicationRow, modules: List[models.DB.ModuleRow])(implicit lang: Lang)
+@(application: models.DB.ApplicationRow, moduleList: List[models.DB.ModuleRow], modelList: List[models.DB.ModelRow])(implicit lang: Lang)
 
 @main(Messages("application.name")){
 	<div class="page-header">
@@ -6,10 +6,15 @@
   </div>
 	<h2>@Messages("application.detail")</h2>
   @views.html.application.list(List(application))
-
-  <h3>@Messages("application.module_list",application.name)</h3>
-  @views.html.module.list(modules)
+  
+  <h3>@Messages("application.module_list", application.name)</h3>
+  @views.html.module.list(moduleList)
   @views.html.module.buttons.new_item()
+  
+
+  <h3>@Messages("application.model_list",application.name)</h3>
+  @views.html.model.list(modelList)
+  @views.html.model.buttons.new_item()
 
  	<p>
 		<a href="@controllers.routes.ApplicationController.generateAll(application.id.get)"

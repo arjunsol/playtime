@@ -1,0 +1,20 @@
+@(modelList: List[models.DB.ModelRow])(implicit lang: Lang)
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>@Messages("model.number")</th>
+        <th>@Messages("model.item_name")</th>
+      </tr>
+    </thead>
+    <tbody>
+    @for(model <- modelList){
+          <tr>
+            <td>
+              <a href="@controllers.routes.ModelController.detail(model.id.get)">@model.id</a>
+            </td>
+            <td>@model.name</td>
+        </tr>
+    }
+     </tbody>
+  </table>

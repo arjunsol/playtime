@@ -1,0 +1,16 @@
+@(model: models.Model)
+@@(@{model.varName}: models.DB.@{model.rowName})(implicit lang: Lang)
+
+@@main(Messages("@{model.name}.name")){
+	<div class="page-header">
+    	<h1>@@Messages("@{model.name}.item_detail",@{model.name}.name)</h1>
+  </div>
+	
+  @@views.html.@{model.name}.list(List(@{model.varName}))
+
+ 	<p>
+		<a href="@@controllers.routes.@{model.controllerName}.index()"
+		class="btn">
+		<i class="icon-plus"></i> @@Messages("@{model.name}.index")</a>
+	</p>
+}

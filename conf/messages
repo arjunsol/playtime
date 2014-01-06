@@ -1,25 +1,27 @@
 application.name = Grator
 
 #applications
-application.module_name = Applications
+application.model_name = Applications
 
 application.number = #
 application.item_name = Name
 
+application.home = Home
 application.new = New Application
 application.insert = A New Application
 application.return = Return
 application.save = Save
 application.index = Applications List
-application.item_detail = {0} Application details
+application.item_detail = {0} application details
 application.path = Path
 application.generate_all = Generate All
 application.detail = Detail
-application.module_list = {0} Modules
-
+application.model_list = {0} models
+application.module_list = {0} modules
+application.create_project = Project Created
 
 #modules
-module.module_name = Modules
+module.model_name = Modules
 
 module.number = #
 module.item_name = Name
@@ -28,18 +30,35 @@ module.new = New Module
 module.insert = A New Module
 module.return = Return
 module.save = Save
-module.index = Modules List
+module.dependencies = Dependencies
 module.item_detail = {0} Module details
-module.field_list = Fields List
 
-module.generate_all = Generate All
-module.generate_controller = Generate Controller
-module.generate_table = Generate Table
-module.generate_row = Generate Row
-module.generate_views = Generate Views
+module.id = Id
+module.name = Name
+
+
+#models
+model.model_name = Models
+
+model.number = #
+model.item_name = Name
+
+model.new = New Model
+model.insert = A New Model
+model.return = Return
+model.save = Save
+model.index = Model List
+model.item_detail = {0} Model details
+model.field_list = Fields List
+
+model.generate_all = Generate All
+model.generate_controller = Generate Controller
+model.generate_table = Generate Table
+model.generate_row = Generate Row
+model.generate_views = Generate Views
 
 #field
-field.module_name = Fields
+field.model_name = Fields
 
 field.number = #
 field.item_name = Name
