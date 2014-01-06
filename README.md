@@ -1,10 +1,7 @@
-Grator
+Playtime!
 ======
 
-CRUD Generator for PlayFramework2-Slick-Scala
+CRUD Generator for Play 2.2.1 and play-slick
 
-Inspired by CATO(PHP/Smarty).
+Forked from Grator: https://github.com/geckopeb/grator/wiki which was inspired by CATO(PHP/Smarty).
 
-https://github.com/geckopeb/grator/wiki
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/d86948658245f1bc3701343fb9fd667c "githalytics.com")](http://githalytics.com/geckopeb/grator)
