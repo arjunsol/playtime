@@ -19,3 +19,4 @@ grator.sublime-project
 grator.sublime-workspace
 /.cache
 /*.bak
+.cache
