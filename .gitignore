@@ -17,6 +17,5 @@ dist
 /.settings
 grator.sublime-project
 grator.sublime-workspace
-conf/application.conf
 /.cache
 /*.bak
