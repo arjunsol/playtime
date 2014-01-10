@@ -1,4 +1,4 @@
-name := "grator"
+name := "Playtime!"
 
 version := "1.0-SNAPSHOT"
 
