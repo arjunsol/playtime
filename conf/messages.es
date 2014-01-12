@@ -1,4 +1,4 @@
-application.name = Grator
+application.name = Playtime
 
 application.model_name = Aplicaciones
 

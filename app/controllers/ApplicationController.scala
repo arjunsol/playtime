@@ -39,7 +39,6 @@ object ApplicationController extends Controller {
   def detail(id: Long) = Action {
     ApplicationRow.findById(id).map{
       application => {
-        //val models = ModelRow.findByApplicationId(application.id.get)
         Ok(views.html.application.detail(application, application.modules, application.models))
       }
     }.getOrElse(NotFound)

@@ -24,7 +24,8 @@ object ModelController extends Controller {
       mapping(
         "id" -> optional(longNumber),
         "name" -> nonEmptyText,
-        "application" -> longNumber
+        "application" -> longNumber,
+        "models" -> optional(longNumber)
       )(ModelRow.apply)(ModelRow.unapply)
   )
 

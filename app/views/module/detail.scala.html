@@ -8,8 +8,12 @@
   @views.html.module.list(List(module))
 
  	<p>
-		<a href="@controllers.routes.ModuleController.index()"
+		<a href="@controllers.routes.ModuleController.edit(module.id.get)"
 		class="btn">
-		<i class="icon-plus"></i> @Messages("module.index")</a>
+		<i class="icon-plus"></i> @Messages("module.edit")</a>
 	</p>
+	
+  <h3>@Messages("application.model_list")</h3>
+  @views.html.model.list(module.models)
+  @views.html.model.buttons.new_item()
 }

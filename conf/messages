@@ -1,7 +1,8 @@
-application.name = Grator
+application.name = Playtime
 
 #applications
 application.model_name = Applications
+application.name = Application
 
 application.number = #
 application.item_name = Name
@@ -16,8 +17,8 @@ application.item_detail = {0} application details
 application.path = Path
 application.generate_all = Generate All
 application.detail = Detail
-application.model_list = {0} models
-application.module_list = {0} modules
+application.model_list = Models
+application.module_list = Modules
 application.create_project = Project Created
 
 #modules
@@ -25,6 +26,7 @@ module.model_name = Modules
 
 module.number = #
 module.item_name = Name
+module.edit = Edit
 
 module.new = New Module
 module.insert = A New Module
