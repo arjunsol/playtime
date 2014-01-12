@@ -93,6 +93,7 @@ object FieldRow{
       //("Name","Name"),
       ("Text","Text"),
       ("Integer","Integer"),
+      ("Double","Double"),
       ("Boolean","Boolean"),
       ("Related","Related")
     )
