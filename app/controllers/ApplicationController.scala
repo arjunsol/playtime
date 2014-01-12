@@ -5,13 +5,14 @@ import play.api.mvc._
 import models.DB._
 import play.api.data._
 import play.api.data.Forms._
-
 import play.api.db.slick.DB
 import play.api.db.slick.Config.driver.simple._
 import slick.lifted.{Join, MappedTypeMapper}
 import controllers.operations.FileOperations
 import controllers.operations.ProjectOperations
 import utils.FileUtils
+import play.templates.Format
+import play.api.data.format.Formats._
 
 object ApplicationController extends Controller {
   
@@ -24,7 +25,7 @@ object ApplicationController extends Controller {
 
   val applicationForm = Form(
 	    mapping(
-	      "id" -> optional(longNumber),
+	      "id" -> optional(of[Long]),
 	      "name" -> nonEmptyText,
         "path" -> nonEmptyText,
         "createProject" -> boolean
