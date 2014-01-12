@@ -3,7 +3,6 @@
 <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th>@Messages("application.number")</th>
         <th>@Messages("application.item_name")</th>
         <th>@Messages("application.path")</th>
         <th>@Messages("application.create_project")</th>
@@ -13,9 +12,8 @@
     @for(application <- applications){
           <tr>
             <td>
-              <a href="@controllers.routes.ApplicationController.detail(application.id.get)">@application.id</a>
+              <a href="@controllers.routes.ApplicationController.detail(application.id.get)">@application.name</a>
             </td>
-            <td>@application.name</td>
             <td>@application.path</td>
             <td>@application.createProject</td>
         </tr>

@@ -20,6 +20,8 @@ case class ModuleRow(
   
 ){
   
+  lazy val models = ModelRow.findByModuleId(this.id.get)
+  
 }
 
 object ModuleRow{

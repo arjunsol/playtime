@@ -10,12 +10,29 @@ import play.api.db.slick.Config.driver.simple._
 import slick.lifted.{Join, MappedTypeMapper}
 import controllers.operations.ProjectOperations
 import controllers.operations.FileOperations
+import scala.collection.immutable.HashMap
 
 object ModuleController extends Controller {
+  
   def index = Action {
+    val modules = ModuleRow.findAll
+    Ok(views.html.module.index(modules))
+  }
+  
+  def getViewMap():Map[ModuleRow, String] = {
     val Modules = ModuleRow.findAll
-
-    Ok(views.html.module.index(Modules))
+    
+    var map:Map[ModuleRow,String] = Map()
+    var name = ""
+    
+    Modules.foreach{module =>
+    	if (module.dependencies != None) {
+    	  name = ModuleRow.findById(module.dependencies.get).get.name.toString()
+    	}	 
+      map += (module -> name) 
+    }
+    
+    return map
   }
 
   val ModuleForm = Form(
@@ -30,12 +47,11 @@ object ModuleController extends Controller {
 
   def insert = Action {
     Ok(views.html.module.insert(ModuleForm, ApplicationRow.getOptions))
-  }
-  
+  }  
 
   def detail(id: Long) = Action {
-    ModuleRow.findById(id).map{
-      Module => Ok(views.html.module.detail(Module))
+    ModuleRow.findById(id).map{ 
+      module => Ok(views.html.module.detail(module))
     }.getOrElse(NotFound)
   }
   

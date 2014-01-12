@@ -4,7 +4,7 @@ import play.Project._
 
 object ApplicationBuild extends Build {
 
-  val appName         = "Grator"
+  val appName         = "Playtime"
   val appVersion      = "1.0-SNAPSHOT"
 
   val appDependencies = Seq(

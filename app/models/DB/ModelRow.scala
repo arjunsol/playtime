@@ -17,7 +17,8 @@ import play.api.Logger
 case class ModelRow(
 	id: Option[Long] = None,
 	name: String,
-	applicationId: Long
+	applicationId: Long,
+	modelId: Option[Long]
 ){
   lazy val fields = FieldRow.findByModel(this.id.get)
   lazy val renderFields = for (fieldRow <- this.fields) yield (FieldFactory.get(fieldRow))
@@ -165,6 +166,15 @@ object ModelRow{
     DB.withSession { implicit session =>
       val q = for{
         s <- ModelTable if s.applicationId === id
+      } yield (s)
+      q.list
+    }
+  }
+  
+  def findByModuleId(id: Long): List[ModelRow] = {
+    DB.withSession { implicit session =>
+      val q = for{
+        s <- ModelTable if s.moduleId === id
       } yield (s)
       q.list
     }

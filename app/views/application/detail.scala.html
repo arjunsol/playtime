@@ -2,17 +2,17 @@
 
 @main(Messages("application.name")){
 	<div class="page-header">
-    	<h1>@Messages("application.item_detail",application.name)</h1>
+    	<h1>@Messages("application.item_detail",application.name.toUpperCase())</h1>
   </div>
-	<h2>@Messages("application.detail")</h2>
+	<h2>@Messages("application.name")</h2>
   @views.html.application.list(List(application))
   
-  <h3>@Messages("application.module_list", application.name)</h3>
+  <h3>@Messages("application.module_list")</h3>
   @views.html.module.list(moduleList)
   @views.html.module.buttons.new_item()
   
 
-  <h3>@Messages("application.model_list",application.name)</h3>
+  <h3>@Messages("application.model_list")</h3>
   @views.html.model.list(modelList)
   @views.html.model.buttons.new_item()
 
