@@ -32,7 +32,7 @@ case class ModelRow(
   lazy val model = new Model(this)
 
   def getPath(folder: String, fileTermination: String): String = {
-    val basePath = this.application.get.path
+    val basePath = this.application.get.path + "/" + this.application.get.name + "/"
 
     val path = basePath+folder+this.name.capitalize+fileTermination
     Logger.debug(path)
@@ -43,7 +43,7 @@ case class ModelRow(
     val app = ApplicationRow.findById(this.applicationId)
     val basePath = app.get.path
 
-    basePath+"app/views/"+this.name+"/"+viewName+".scala.html"
+    basePath + "/" + app.get.name + "/app/views/"+this.name+"/"+viewName+".scala.html"
   }
 
   def generateAll(): Unit = {
