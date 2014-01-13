@@ -21,3 +21,4 @@ grator.sublime-workspace
 /*.bak
 .cache
 h2/
+clean.sh
