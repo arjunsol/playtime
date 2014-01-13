@@ -1,4 +1,4 @@
-@(application: models.DB.ApplicationRow, moduleList: List[models.DB.ModuleRow], modelList: List[models.DB.ModelRow])(implicit lang: Lang)
+@(application: models.DB.ApplicationRow, moduleList: List[models.DB.ApplicationRow], modelList: List[models.DB.ModelRow])(implicit lang: Lang)
 
 @main(Messages("application.name")){
 	<div class="page-header">
@@ -8,8 +8,8 @@
   @views.html.application.list(List(application))
   
   <h3>@Messages("application.module_list")</h3>
-  @views.html.module.list(moduleList)
-  @views.html.module.buttons.new_item()
+  @views.html.application.list(moduleList)
+  @views.html.application.buttons.new_item()
   
 
   <h3>@Messages("application.model_list")</h3>

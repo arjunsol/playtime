@@ -28,7 +28,8 @@ object ApplicationController extends Controller {
 	      "id" -> optional(of[Long]),
 	      "name" -> nonEmptyText,
         "path" -> nonEmptyText,
-        "createProject" -> boolean
+        "createProject" -> boolean,
+        "parentId" -> optional(of[Long])
 	    )(ApplicationRow.apply)(ApplicationRow.unapply)
 	)
 

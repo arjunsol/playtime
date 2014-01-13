@@ -9,13 +9,13 @@ POST  /application/:id/update       controllers.ApplicationController.update(id:
 GET   /application/:id/generateall  controllers.ApplicationController.generateAll(id: Long)
 
 # Module
-GET   /module						controllers.ModuleController.index
-GET   /module/:id/detail     		controllers.ModuleController.detail(id: Long)
-GET   /module/insert         		controllers.ModuleController.insert
-GET   /module/:id/edit       		controllers.ModuleController.edit(id: Long)
-POST  /module/save			        controllers.ModuleController.save
-POST  /module/:id/delete  		    controllers.ModuleController.delete(id: Long)
-POST  /module/:id/update     		controllers.ModuleController.update(id: Long)
+#GET   /module						controllers.ApplicationController.index
+#GET   /module/:id/detail     		controllers.ApplicationController.detail(id: Long)
+#GET   /module/insert         		controllers.ApplicationController.insert
+#GET   /module/:id/edit       		controllers.ApplicationController.edit(id: Long)
+#POST  /module/save			        controllers.ApplicationController.save
+#POST  /module/:id/delete  		    controllers.ApplicationController.delete(id: Long)
+#POST  /module/:id/update     		controllers.ApplicationController.update(id: Long)
 
 # Model
 GET   /model                controllers.ModelController.index

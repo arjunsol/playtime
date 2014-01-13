@@ -13,10 +13,11 @@ case class ApplicationRow(
 	id: Option[Long] = None,
 	name: String,
 	path: String,
-	createProject: Boolean
+	createProject: Boolean,
+	parentId: Option[Long]
 ){
   lazy val models = ModelRow.findByApplication(this.id.get)
-  lazy val modules = ModuleRow.findByApplicationId(this.id.get)
+  lazy val modules = ApplicationRow.findModulesByApplicationId(this.id.get)
 
   def generateAll(): Unit = {
     val models = ModelRow.findAll
@@ -110,6 +111,15 @@ object ApplicationRow{
         p <- ApplicationTable
       } yield(p)
       for(application <- applications.list) yield(application.id.get.toString,application.name) 
+    }
+  }
+  
+  def findModulesByApplicationId(id: Long): List[ApplicationRow] = {
+    DB.withSession { implicit session =>
+      val q = for{
+        s <- ApplicationTable if s.parentId === id
+      } yield (s)
+      q.list
     }
   }
 }

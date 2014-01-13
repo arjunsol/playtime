@@ -170,15 +170,6 @@ object ModelRow{
       q.list
     }
   }
-  
-  def findByModuleId(id: Long): List[ModelRow] = {
-    DB.withSession { implicit session =>
-      val q = for{
-        s <- ModelTable if s.moduleId === id
-      } yield (s)
-      q.list
-    }
-  }
 
   def findByApplication(applicationId: Long): List[ModelRow] = {
     DB.withSession { implicit session =>
