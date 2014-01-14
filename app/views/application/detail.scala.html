@@ -9,8 +9,7 @@
   
   <h3>@Messages("application.module_list")</h3>
   @views.html.application.list(moduleList)
-  @views.html.application.buttons.new_item()
-  
+  @views.html.application.buttons.new_item(application.id.get)  
 
   <h3>@Messages("application.model_list")</h3>
   @views.html.model.list(modelList)

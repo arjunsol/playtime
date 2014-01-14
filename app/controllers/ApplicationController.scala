@@ -25,16 +25,16 @@ object ApplicationController extends Controller {
 
   val applicationForm = Form(
 	    mapping(
-	      "id" -> optional(of[Long]),
-	      "name" -> nonEmptyText,
+	    "id" -> optional(of[Long]),
+	    "name" -> nonEmptyText,
         "path" -> nonEmptyText,
         "createProject" -> boolean,
         "parentId" -> optional(of[Long])
 	    )(ApplicationRow.apply)(ApplicationRow.unapply)
 	)
 
-  def insert = Action {
-	  Ok(views.html.application.insert(applicationForm))
+  def insert(id: Long) = Action {
+	  Ok(views.html.application.insert(applicationForm, id))
   }
 	
 
@@ -46,16 +46,23 @@ object ApplicationController extends Controller {
     }.getOrElse(NotFound)
   }
   
-  def save = Action { implicit request =>
+  def save(parentId: Long) = Action { implicit request =>
     applicationForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(views.html.application.insert(formWithErrors)),
+      formWithErrors => BadRequest(views.html.application.insert(formWithErrors, 0)),
       application => {
         
-        if (application.createProject) {
-          ProjectOperations.createProject(application.name, application.path + "\\" + application.name)
-        }       
+        val id = ApplicationRow.save(application)
         
-        val id = ApplicationRow.save(application)        
+        if (parentId != 0) {
+	        if (application.createProject) {
+	          ProjectOperations.createProject(application.name, application.path + "\\" + application.name)
+	        }       
+        } else {
+        	val parentApp = ApplicationRow.findById(parentId).get
+        	val modulePath = parentApp.path + "\\" + parentApp.name + "\\modules" + "\\" + application.name
+        	ProjectOperations.createModule(application.name, modulePath, parentId)          
+        }
+                
         Redirect(routes.ApplicationController.detail(id))
       }
     )

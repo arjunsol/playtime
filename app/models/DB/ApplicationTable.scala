@@ -16,5 +16,5 @@ object ApplicationTable extends Table[ApplicationRow]("application"){
 	def * = id.? ~ name ~ path ~ createProject ~ parentId.? <> (ApplicationRow.apply _, ApplicationRow.unapply _)
 	
 	//KEYS	
-	def application = foreignKey("application_module_id", parentId, ApplicationTable)(_.id)
+	def parent = foreignKey("application_module_id", parentId, ApplicationTable)(_.id)
 }

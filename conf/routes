@@ -1,9 +1,9 @@
 # Home page
 GET   /                             controllers.ApplicationController.index
 GET   /application/:id/detail       controllers.ApplicationController.detail(id: Long)
-GET   /application/insert           controllers.ApplicationController.insert
+GET   /application/insert           controllers.ApplicationController.insert(id: Long)
 GET   /application/:id/edit         controllers.ApplicationController.edit(id: Long)
-POST  /application/save             controllers.ApplicationController.save
+POST  /application/save             controllers.ApplicationController.save(id: Long)
 POST  /application/:id/delete       controllers.ApplicationController.delete(id: Long)
 POST  /application/:id/update       controllers.ApplicationController.update(id: Long)
 GET   /application/:id/generateall  controllers.ApplicationController.generateAll(id: Long)
@@ -11,7 +11,7 @@ GET   /application/:id/generateall  controllers.ApplicationController.generateAl
 # Module
 #GET   /module						controllers.ApplicationController.index
 #GET   /module/:id/detail     		controllers.ApplicationController.detail(id: Long)
-#GET   /module/insert         		controllers.ApplicationController.insert
+#GET   /module/insert         		controllers.ApplicationController.insert(id: Long)
 #GET   /module/:id/edit       		controllers.ApplicationController.edit(id: Long)
 #POST  /module/save			        controllers.ApplicationController.save
 #POST  /module/:id/delete  		    controllers.ApplicationController.delete(id: Long)
