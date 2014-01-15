@@ -1,4 +1,4 @@
-@(applicationForm: Form[models.DB.ApplicationRow])(implicit lang: Lang, parentApp: models.DB.ApplicationRow)
+@(applicationForm: Form[models.DB.ApplicationRow], id: Long)(implicit lang: Lang, parentApp: models.DB.ApplicationRow)
 
 @main(Messages("application.insert")){
   <div class="page-header">

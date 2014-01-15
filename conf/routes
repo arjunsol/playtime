@@ -1,7 +1,8 @@
 # Home page
 GET   /                             controllers.ApplicationController.index
 GET   /application/:id/detail       controllers.ApplicationController.detail(id: Long)
-GET   /application/insert           controllers.ApplicationController.insert(id: Long)
+GET   /application/insert           controllers.ApplicationController.insert
+GET   /application/insertModule     controllers.ApplicationController.insertModule(id: Long)
 GET   /application/:id/edit         controllers.ApplicationController.edit(id: Long)
 POST  /application/save             controllers.ApplicationController.save
 POST  /application/:id/delete       controllers.ApplicationController.delete(id: Long)

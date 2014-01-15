@@ -14,7 +14,7 @@ case class ApplicationRow(
 	name: String,
 	path: String,
 	createProject: Boolean,
-	parentId: Option[Long]
+	parentId: Option[Long] = None
 ){
   lazy val models = ModelRow.findByApplication(this.id.get)
   lazy val modules = ApplicationRow.findModulesByApplicationId(this.id.get)

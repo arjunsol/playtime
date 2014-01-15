@@ -16,6 +16,8 @@ import play.api.data.format.Formats._
 
 object ApplicationController extends Controller {
   
+  implicit val application = new ApplicationRow(None, "", "", true, None)
+  
   def index = Action {
     
     val applications = ApplicationRow.findAll
@@ -33,8 +35,12 @@ object ApplicationController extends Controller {
 	    )(ApplicationRow.apply)(ApplicationRow.unapply)
 	)
 
-  def insert(id: Long) = Action {
+  def insert() = Action {
 	  Ok(views.html.application.insert(applicationForm))
+  }
+  
+  def insertModule(id: Long) = Action {
+	  Ok(views.html.application.insert_module(applicationForm, id))
   }
 	
 
