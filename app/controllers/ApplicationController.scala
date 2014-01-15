@@ -34,7 +34,7 @@ object ApplicationController extends Controller {
 	)
 
   def insert(id: Long) = Action {
-	  Ok(views.html.application.insert(applicationForm, id))
+	  Ok(views.html.application.insert(applicationForm))
   }
 	
 
@@ -46,21 +46,21 @@ object ApplicationController extends Controller {
     }.getOrElse(NotFound)
   }
   
-  def save(parentId: Long) = Action { implicit request =>
+  def save = Action { implicit request =>
     applicationForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(views.html.application.insert(formWithErrors, 0)),
+      formWithErrors => BadRequest(views.html.application.insert(formWithErrors)),
       application => {
         
         val id = ApplicationRow.save(application)
         
-        if (parentId != 0) {
+        if (0 == 0) {
 	        if (application.createProject) {
 	          ProjectOperations.createProject(application.name, application.path + "\\" + application.name)
 	        }       
         } else {
-        	val parentApp = ApplicationRow.findById(parentId).get
+        	val parentApp = ApplicationRow.findById(id).get
         	val modulePath = parentApp.path + "\\" + parentApp.name + "\\modules" + "\\" + application.name
-        	ProjectOperations.createModule(application.name, modulePath, parentId)          
+        	ProjectOperations.createModule(application.name, modulePath, id)          
         }
                 
         Redirect(routes.ApplicationController.detail(id))
