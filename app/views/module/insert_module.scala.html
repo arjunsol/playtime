@@ -1,0 +1,15 @@
+@(applicationForm: Form[models.DB.ApplicationRow], applicationId: Long)(implicit lang: Lang, parentApp: models.DB.ApplicationRow)
+
+@main(Messages("application.insert")){
+  <div class="page-header">
+      <h1>@Messages("application.insert")</h1>
+  </div>
+  
+  @views.html.module.form(applicationForm,routes.ApplicationController.save(applicationId), applicationId)
+
+  <p>
+    <a href="@controllers.routes.ApplicationController.index()"
+    class="btn">
+    <i class="icon-plus"></i> @Messages("application.return")</a>
+  </p>
+}
