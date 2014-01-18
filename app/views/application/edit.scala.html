@@ -5,7 +5,7 @@
       <h1>@Messages("application.insert")</h1>
   </div>
   
-  @views.html.application.form(applicationForm,routes.ApplicationController.update(application.id.get),Some(application))
+  @views.html.application.form(applicationForm,routes.ApplicationController.update(application.id.get), Some(application))
 
   <p>
     <a href="@controllers.routes.ApplicationController.index()"

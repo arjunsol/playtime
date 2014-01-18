@@ -11,6 +11,8 @@ object ApplicationTable extends Table[ApplicationRow]("application"){
 	def name = column[String]("name",O.NotNull)
     def path = column[String]("path",O.NotNull)
     def createProject = column[Boolean]("create_project",O.NotNull)
+    def parentId = column[Long]("parent_id", O.Nullable)
 
-	def * = id.? ~ name ~ path ~ createProject <> (ApplicationRow.apply _, ApplicationRow.unapply _)
+	def * = id.? ~ name ~ path ~ createProject ~ parentId.? <> (ApplicationRow.apply _, ApplicationRow.unapply _)
+	
 }

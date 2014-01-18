@@ -1,0 +1,10 @@
+@(id: Long)(implicit lang: Lang)
+<p>
+	@if(id == 0) {
+		<a href="@controllers.routes.ApplicationController.insert()"
+	} else {
+		<a href="@controllers.routes.ApplicationController.insertModule(id)"
+	}
+	class="btn">
+	<i class="icon-plus"></i> @Messages(if(id == 0) {"application.new"} else {"module.new"})</a>
+</p>

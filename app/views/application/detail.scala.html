@@ -1,16 +1,23 @@
-@(application: models.DB.ApplicationRow, moduleList: List[models.DB.ModuleRow], modelList: List[models.DB.ModelRow])(implicit lang: Lang)
+@(application: models.DB.ApplicationRow, moduleList: List[models.DB.ApplicationRow], modelList: List[models.DB.ModelRow])(implicit lang: Lang)
 
 @main(Messages("application.name")){
 	<div class="page-header">
-    	<h1>@Messages("application.item_detail",application.name.toUpperCase())</h1>
+		@if(application.parentId.isEmpty) {			
+    		<h1>@Messages("application.item_detail",application.name.toUpperCase())</h1>
+    	}else {
+    		<h1>@Messages("module.item_detail",application.name.toUpperCase())</h1>
+    	}
   </div>
-	<h2>@Messages("application.name")</h2>
+  	@if(application.parentId.isEmpty) {			
+    		<h2>@Messages("application.name")</h2>
+    	}else {
+    		<h2>@Messages("module.name")</h2>
+    	}
   @views.html.application.list(List(application))
   
   <h3>@Messages("application.module_list")</h3>
-  @views.html.module.list(moduleList)
-  @views.html.module.buttons.new_item()
-  
+  @views.html.application.list(moduleList)
+  @views.html.application.buttons.new_item(application.id.get)  
 
   <h3>@Messages("application.model_list")</h3>
   @views.html.model.list(modelList)

@@ -21,6 +21,9 @@ application.model_list = Models
 application.module_list = Modules
 application.create_project = Project Created
 
+#forms
+form.select = -- select --
+
 #modules
 module.model_name = Modules
 
@@ -36,7 +39,7 @@ module.dependencies = Dependencies
 module.item_detail = {0} Module details
 
 module.id = Id
-module.name = Name
+module.name = Module
 
 
 #models

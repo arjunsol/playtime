@@ -4,7 +4,7 @@ import play.api._
 import play.api.Play.current
 import java.io.{FileFilter, FileWriter}
 import utils.FileUtils
-import models.DB.ModuleRow
+import models.DB.ApplicationRow
 
 object ProjectOperations {
   
@@ -18,7 +18,7 @@ object ProjectOperations {
 		writeConf(dstPath)
 	}
   
-	def createModule(name: String, dstPath: String) {
+	def createModule(name: String, dstPath: String, applicationId: Long) {
 	  
 		FileOperations.copyPath(srcPath, dstPath, new ModuleFileFilter)
 		FileUtils.writeToFile(dstPath + "\\conf\\application.conf",views.html.project.template.module_application_conf(name).toString)
@@ -37,13 +37,13 @@ object ProjectOperations {
 		}
 		
 		val build = new FileWriter(dstPath + "\\..\\..\\build.sbt", true)
-		val modules = ModuleRow.findAll
+		val modules = ApplicationRow.findModulesByApplicationId(applicationId)
 		
 		var moduleNames = ""
 		  
 		modules.foreach(module => if (moduleNames == "") moduleNames = module.name else moduleNames = moduleNames + ", " + module.name)
 		
-		FileUtils.writeToFile(dstPath + "\\..\\..\\modules.sbt", views.html.project.template.module_modules_sbt(ModuleRow.findAll, moduleNames).toString)
+		FileUtils.writeToFile(dstPath + "\\..\\..\\modules.sbt", views.html.project.template.module_modules_sbt(modules, moduleNames).toString)
 	  
 	}
 	

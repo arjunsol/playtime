@@ -1,4 +1,4 @@
-@(moduleForm: Form[models.DB.ModuleRow], applications: Seq[(String,String)], formAction: play.api.mvc.Call, row: Option[models.DB.ModuleRow] = None)(implicit lang: Lang)
+@(moduleForm: Form[models.DB.ApplicationRow], formAction: play.api.mvc.Call, parentId: Long, row: Option[models.DB.ApplicationRow] = None)(implicit lang: Lang)
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -8,10 +8,15 @@
 
 	@row match {
     	case Some(row) => {
-    		<input type="hidden" name="id" value="@row.id.get">
+    		<input type="hidden" name="id" value="">
     	}
-    	case None => {}
-	  }
+    	case None => {
+    		<input type="hidden" name="id" value="">
+	    }
+	 }
+	  
+	  		<input type="hidden" name="parentId" value="@parentId">
+	  		<input type="hidden" name="path" value="modules">
 
 	<legend>
 				@Messages("module.item_name")
@@ -23,14 +28,9 @@
 		   </legend>
 		   @select(
 		   		moduleForm("dependencies"),
-		   		models.DB.ModuleRow.getOptions,
-		   		'_default -> "-- select --"
+		   		models.DB.ApplicationRow.getModuleOptions(parentId),
+		   		'_default -> Messages("form.select")
 		   )
-		   		   
-		   @helper.select(
-        moduleForm("applicationId"),
-        applications               
-    )
 
   </fieldset>
   <p><input type="submit" class="btn primary"

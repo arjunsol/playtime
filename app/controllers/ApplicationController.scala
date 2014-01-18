@@ -16,24 +16,31 @@ import play.api.data.format.Formats._
 
 object ApplicationController extends Controller {
   
+  implicit val application = new ApplicationRow(None, "", "", true, None)
+  
   def index = Action {
     
-    val applications = ApplicationRow.findAll
+    val applications = ApplicationRow.findApplications
 
     Ok(views.html.application.index(applications))
   }
 
   val applicationForm = Form(
 	    mapping(
-	      "id" -> optional(of[Long]),
-	      "name" -> nonEmptyText,
+	    "id" -> optional(of[Long]),
+	    "name" -> nonEmptyText,
         "path" -> nonEmptyText,
-        "createProject" -> boolean
+        "createProject" -> boolean,
+        "parentId" -> optional(of[Long])
 	    )(ApplicationRow.apply)(ApplicationRow.unapply)
 	)
 
-  def insert = Action {
+  def insert() = Action {
 	  Ok(views.html.application.insert(applicationForm))
+  }
+  
+  def insertModule(id: Long) = Action {
+	  Ok(views.html.module.insert_module(applicationForm, id))
   }
 	
 
@@ -45,19 +52,38 @@ object ApplicationController extends Controller {
     }.getOrElse(NotFound)
   }
   
-  def save = Action { implicit request =>
+  def save(parentId: Long) = Action { implicit request =>
     applicationForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(views.html.application.insert(formWithErrors)),
+      formWithErrors => BadRequest(
+          if (parentId == 0) {
+            views.html.application.insert(formWithErrors)
+          }
+          else {
+            views.html.module.insert_module(formWithErrors, parentId)
+          }),
       application => {
         
-        if (application.createProject) {
-          ProjectOperations.createProject(application.name, application.path + "\\" + application.name)
-        }       
+        val applicationNew = new ApplicationRow(None, application.name, application.path, true, Some(parentId))
         
-        val id = ApplicationRow.save(application)        
+        val id = ApplicationRow.save(applicationNew)
+        
+        if (parentId == 0) {
+	        if (applicationNew.createProject) {
+	          ProjectOperations.createProject(applicationNew.name, applicationNew.path + "\\" + applicationNew.name)
+	        }       
+        } else {
+        	val parentApp = ApplicationRow.findById(parentId).get
+        	val modulePath = parentApp.path + "\\" + parentApp.name + "\\modules" + "\\" + applicationNew.name
+        	ProjectOperations.createModule(applicationNew.name, modulePath, parentId)          
+        }
+                
         Redirect(routes.ApplicationController.detail(id))
       }
     )
+  }
+  
+  def saveModule(parentId: Long) = Action {
+    Redirect(routes.ApplicationController.detail(parentId))
   }
   
   def edit(id: Long) = Action{
