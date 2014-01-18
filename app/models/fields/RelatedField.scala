@@ -34,7 +34,7 @@ class RelatedField(val field: FieldRow) extends Field{
 		   @select(
 		   		rowForm("$name"),
 		   		models.DB.$relatedRowName.getOptions,
-		   		'default -> "-- select --"
+		   		'_default -> Messages("form.select")
 		   )"""
 	}
 

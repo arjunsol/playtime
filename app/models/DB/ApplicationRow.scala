@@ -18,6 +18,7 @@ case class ApplicationRow(
 ){
   lazy val models = ModelRow.findByApplication(this.id.get)
   lazy val modules = ApplicationRow.findModulesByApplicationId(this.id.get)
+  lazy val defaultMessagePath = this.path + "\\conf\\messages"
 
   def generateAll(): Unit = {
     val models = ModelRow.findAll

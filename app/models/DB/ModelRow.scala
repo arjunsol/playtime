@@ -80,6 +80,10 @@ case class ModelRow(
 
   def generateFormView(): Unit = {
     val path = this.getViewPath("form")
+    val message = "\nform.select = -- select --\n"
+    if (!FileUtils.fileHasString(this.application.get.defaultMessagePath, message)) {
+        FileUtils.writeToFile(this.application.get.defaultMessagePath, message)
+    }
     FileUtils.writeToFile(path,views.html.model.template.modelviews.form(this.model,this.renderFields).toString)
   }
 
