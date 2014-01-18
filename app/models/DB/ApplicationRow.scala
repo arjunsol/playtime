@@ -84,12 +84,23 @@ object ApplicationRow{
 	  	Query(ApplicationTable).list
 	  }
 	}
+	
 	def findById(id: Long):Option[ApplicationRow] = {
 	  DB.withSession { implicit session =>
 	  	val q = for{
 	  	  s <- ApplicationTable if s.id === id
 	  	} yield (s)
 	  	q.firstOption
+	  }
+	}
+	
+	def findApplications():List[ApplicationRow] = {
+	  DB.withSession { implicit session =>
+	  	val q = for{
+	  	  s <- ApplicationTable 
+	  	  if s.parentId === 0l
+	  	} yield (s)
+	  	q.list
 	  }
 	}
 
@@ -105,14 +116,23 @@ object ApplicationRow{
   }
   */
 
-  def getOptions(): Seq[(String,String)] = {
+    def getModuleOptions(id: Long): Seq[(String,String)] = {
+      DB.withSession { implicit session =>
+      val applications = for {
+        p <- ApplicationTable if p.parentId === id
+      } yield(p)
+      	for(application <- applications.list) yield(application.id.get.toString,application.name) 
+      }
+    }
+	
+	def getOptions(): Seq[(String,String)] = {
     DB.withSession { implicit session =>
       val applications = for {
         p <- ApplicationTable
-      } yield(p)
-      for(application <- applications.list) yield(application.id.get.toString,application.name) 
-    }
-  }
+     } yield(p)
+       for(application <- applications.list) yield(application.id.get.toString,application.name) 
+     }
+	}
   
   def findModulesByApplicationId(id: Long): List[ApplicationRow] = {
     DB.withSession { implicit session =>

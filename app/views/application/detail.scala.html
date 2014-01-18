@@ -2,9 +2,17 @@
 
 @main(Messages("application.name")){
 	<div class="page-header">
-    	<h1>@Messages("application.item_detail",application.name.toUpperCase())</h1>
+		@if(application.parentId.isEmpty) {			
+    		<h1>@Messages("application.item_detail",application.name.toUpperCase())</h1>
+    	}else {
+    		<h1>@Messages("module.item_detail",application.name.toUpperCase())</h1>
+    	}
   </div>
-	<h2>@Messages("application.name")</h2>
+  	@if(application.parentId.isEmpty) {			
+    		<h2>@Messages("application.name")</h2>
+    	}else {
+    		<h2>@Messages("module.name")</h2>
+    	}
   @views.html.application.list(List(application))
   
   <h3>@Messages("application.module_list")</h3>
