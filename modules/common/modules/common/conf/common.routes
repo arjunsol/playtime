@@ -1,3 +1,0 @@
-# Routes specific to the common module
-
-GET   /status          controllers.common.Application.status()
